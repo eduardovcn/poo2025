@@ -1,33 +1,62 @@
 package contas;
 
-public class Conta {
-    private int numero;
-    String nome;
-    private double saldo;
-    double limite;
 
-    public Conta() {
-        this.saldo = 0.0; //inicia toda conta com saldo 0.0
+public class Conta {
+    /// O modificador static faz com que essa variável pertença à classe Conta como um todo, e não a instâncias individuais.
+    /// O modificador private restringe o acesso a essa variável apenas dentro da própria classe Conta.
+    private static int proximoNumeroConta = 1000;
+    public int numeroConta;
+    public String nome;
+    public double saldo;
+
+
+    public Conta(String nome) {
+        this.numeroConta = proximoNumeroConta++;
+        this.saldo = 0;
+        this.nome = nome;
         System.out.println("Uma nova conta foi criada com sucesso");
     }
-    void sacar(double quantidade) {
-        double novoSaldo = this.saldo - quantidade;
-        this.saldo = novoSaldo;
+
+
+    public boolean sacar(double quantidade) {
+
+        if (quantidade <= this.saldo) {
+            double novoSaldo = this.saldo - quantidade;
+            this.saldo = novoSaldo;
+            System.out.println("O valor de " + quantidade + " foi sacado com sucesso!");
+
+            return true;
+        } else {
+            System.out.println("O valor que você solicitou excede o saldo disponivel");
+
+            return false;
+
+        }
+
     }
 
-    void depositar(double quantidade) {
-        double novoSaldo = this.saldo + quantidade;
-        this.saldo = novoSaldo;
+    public boolean depositar(double quantidade) {
+        if (quantidade > 0) {
+            double novoSaldo = this.saldo + quantidade;
+            this.saldo = novoSaldo;
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
     public String toString() {
-            return "Conta {\n" +
-                    "Número: " + numero + "\n" +
-                    "Nome: " + nome + "\n" +
-                    "Saldo: " + saldo + "\n" +
-                    "Limite: " + limite + "\n";
+        return "Conta {\n" +
+                "Numero da Conta: " + numeroConta + "\n" +
+                "Nome: " + nome + "\n" +
+                "Saldo: " + saldo + "\n";
+
     }
 }
+
+
+
 
 
