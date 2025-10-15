@@ -1,8 +1,8 @@
 package contas;
 
 public class ContaInvestimento extends Conta {
-    public int prazo;
-    public double taxa;
+    public int prazo = 0;
+    public double taxa = 0;
 
 
     public ContaInvestimento(String nome, double taxa, int prazo) {

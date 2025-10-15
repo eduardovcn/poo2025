@@ -14,9 +14,19 @@ public class Conta {
         this.numeroConta = proximoNumeroConta++;
         this.saldo = 0;
         this.nome = nome;
-        System.out.println("Uma nova conta foi criada com sucesso");
+        System.out.println("Conta criada com sucesso!" + "Número da conta: " + this.numeroConta + " Nome do titular: " + this.nome);
     }
 
+    // Getters
+    public int getNumeroConta() {
+        return this.numeroConta;
+    }
+    public double getSaldo() {
+        return this.saldo;
+    }
+    public String getNome() {
+        return this.nome;
+    }
 
     public boolean sacar(double quantidade) {
 
