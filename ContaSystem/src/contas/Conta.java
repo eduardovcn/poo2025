@@ -5,16 +5,19 @@ public class Conta {
     /// O modificador static faz com que essa variável pertença à classe Conta como um todo, e não a instâncias individuais.
     /// O modificador private restringe o acesso a essa variável apenas dentro da própria classe Conta.
     private static int proximoNumeroConta = 1000;
-    public int numeroConta;
-    public String nome;
-    public double saldo;
+    private final int numeroConta;
+    private final String nome;
+    private double saldo;
 
-
+    // Construtor
     public Conta(String nome) {
         this.numeroConta = proximoNumeroConta++;
         this.saldo = 0;
         this.nome = nome;
-        System.out.println("Conta criada com sucesso!" + "Número da conta: " + this.numeroConta + " Nome do titular: " + this.nome);
+        System.out.println("\nConta criada com sucesso! \n");
+        System.out.println("Número da Conta: " + this.numeroConta);
+        System.out.println("\nNome do Titular: " + this.nome + "\n");
+
     }
 
     // Getters
@@ -28,6 +31,8 @@ public class Conta {
         return this.nome;
     }
 
+
+    // Métodos
     public boolean sacar(double quantidade) {
 
         if (quantidade <= this.saldo) {
@@ -58,7 +63,7 @@ public class Conta {
 
     @Override
     public String toString() {
-        return "Conta {\n" +
+        return "Conta\n" +
                 "Numero da Conta: " + numeroConta + "\n" +
                 "Nome: " + nome + "\n" +
                 "Saldo: " + saldo + "\n";

@@ -5,6 +5,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import contas.Conta;
 import contas.ContaInvestimento;
+import contas.Banco;
+
+import static contas.Banco.imprimirContas;
 
 
 // Importa a classe "Conta" que está dentro do pacote "contas".
@@ -28,8 +31,9 @@ public class AppMain {
         do {
             System.out.println("\n=== MENU PRINCIPAL ===");
             System.out.println("1. Criar Conta");
-            System.out.println("2. Acessar Conta");
-            System.out.println("3. Consultar Saldo");
+            System.out.println("2. Consultar Saldo");
+            System.out.println("3. Sacar");
+            System.out.println("4. Depositar");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
@@ -51,30 +55,59 @@ public class AppMain {
                             System.out.println("Informe o nome do titular da conta:");
                             String nome = scanner.nextLine();
                             Conta conta = new Conta(nome);
+                            Banco.adicionarConta(conta);
                             System.out.println(" ");
                             System.out.println("Conta criada com sucesso!");
+                            System.out.println(" ");
 
-                        } else if (opcao == 2) {
+                        }
+                        if (opcao == 2) {
                             System.out.println("Informe o nome do titular da conta:");
                             String nome = scanner.nextLine();
                             System.out.println("Informe a taxa de investimento:");
                             double taxa = scanner.nextDouble();
-                            System.out.println("Informe o prazo que você deseja manter seu investimento (em dias):");
+                            System.out.println("Informe quanto tempo você deseja manter seu investimento (em dias):");
                             int prazo = scanner.nextInt();
                             ContaInvestimento contaInvestimento = new ContaInvestimento(nome, taxa, prazo);
-
+                            System.out.println(" ");
                             System.out.println("Conta de Investimento criada com sucesso!");
 
-                        } else {
+                        }
+                        else {
                             System.out.println("Opção inválida. Retornando ao menu principal.");
                             continue;
                         }
+                        break;
 
                     case 2:
-                        System.out.println("Executando Opção B...");
+                        System.out.println("Digite o número da conta que você deseja consultar:");
+                        int numeroConta = scanner.nextInt();
+                        scanner.nextLine(); // Consumir a quebra de linha pendente
+                        Banco.getConta(numeroConta);
                         break;
+
+//                        case 3:
+//                        System.out.println("Digite o número da conta que você deseja sacar:");
+//                        numeroConta = scanner.nextInt();
+//                        scanner.nextLine(); // Consumir a quebra de linha pendente
+//                        conta = Banco.getConta(numeroConta);
+//                        if (conta != null) {
+//                            System.out.println("Digite o valor que você deseja sacar:");
+//                            double quantidade = scanner.nextDouble();
+//                            if (conta.sacar(quantidade)) {
+//                                System.out.println("Saque realizado com sucesso!");
+//                            } else {
+//                                System.out.println("Saldo insuficiente para saque.");
+//                            }
+//                        } else {
+//                            System.out.println("Conta não encontrada.");
+//                        }
+                    //
+
+                    // o case 0 esta com o metodo só para imprimir as contas criadas, depois remover.
                     case 0:
-                        System.out.println("Saindo do sistema...");
+                        imprimirContas();
+                        System.out.println("Saindo do programa. Até mais!");
                         break;
                     default:
                         System.out.println("Erro: Opção inválida!");
