@@ -47,15 +47,11 @@ public class ContaInvestimento extends Conta {
             this.taxa = 0.01;  // 1.0%
         }
 
+
         // 2. Chama o 'depositar' da CLASSE PAI (super) para realmente guardar o dinheiro
-        // Isso executa a lógica de 'this.saldo += quantidade' da classe Conta.
+        // Isso executa a lógica de 'this.saldo += quantidade' da classe Conta. Como preciso retornar um boolean, salvo o resultado em uma variável do tipo boolean.
         boolean sucesso = super.depositar(quantidade);
 
-        // 3. Imprime a mensagem de sucesso (sobrescrevendo a mensagem padrão do pai)
-        if (sucesso) {
-            System.out.println("Investimento de R$ " + quantidade + " realizado com sucesso.");
-            System.out.println("Prazo: " + this.prazo + " dias, Taxa: " + (this.taxa * 100) + "%.");
-        }
         return sucesso;
     }
 
