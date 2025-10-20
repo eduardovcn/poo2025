@@ -4,14 +4,20 @@ package contas;
 public class Conta {
     /// O modificador static faz com que essa variável pertença à classe Conta como um todo, e não a instâncias individuais.
     /// O modificador private restringe o acesso a essa variável apenas dentro da própria classe Conta.
-    private static int proximoNumeroConta = 1000;
+    private static int proximoNumeroContaCorrente = 1000;
     private final int numeroConta;
     private final String nome;
     private double saldo;
 
     // Construtor
     public Conta(String nome) {
-        this.numeroConta = proximoNumeroConta++;
+        this(nome, proximoNumeroContaCorrente++);
+
+    }
+
+    protected Conta(String nome, int numeroConta) {
+        // Este construtor NÃO GERA NÚMERO. Ele recebe o número pronto.
+        this.numeroConta = numeroConta;
         this.saldo = 0;
         this.nome = nome;
         System.out.println("\nConta criada com sucesso! \n");

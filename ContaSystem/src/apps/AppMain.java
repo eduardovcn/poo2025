@@ -64,11 +64,7 @@ public class AppMain {
                         if (opcao == 2) {
                             System.out.println("Informe o nome do titular da conta:");
                             String nome = scanner.nextLine();
-                            System.out.println("Informe a taxa de investimento:");
-                            double taxa = scanner.nextDouble();
-                            System.out.println("Informe quanto tempo você deseja manter seu investimento (em dias):");
-                            int prazo = scanner.nextInt();
-                            ContaInvestimento contaInvestimento = new ContaInvestimento(nome, taxa, prazo);
+                            ContaInvestimento contaInvestimento = new ContaInvestimento(nome);
                             System.out.println(" ");
                             System.out.println("Conta de Investimento criada com sucesso!");
 

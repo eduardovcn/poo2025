@@ -20,11 +20,11 @@ public class Banco {
         }
     }
 
-    public static Conta getConta(int numeroConta) {
+    public static void getConta(int numeroConta) {
         for (Conta conta : contasCorrente) {
             if (conta.getNumeroConta() == numeroConta) {
                 System.out.println("\nNome: " + conta.getNome());
-                System.out.printf("");
+                System.out.println(" ");
                 System.out.println("Saldo: " + conta.getSaldo());
             }
             else {
@@ -32,7 +32,6 @@ public class Banco {
             }
         }
 
-        return null;
     }
 
     // Outros métodos para listar, remover, etc.
