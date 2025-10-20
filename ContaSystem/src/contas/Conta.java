@@ -1,83 +1,51 @@
 package contas;
 
-
 public class Conta {
-    /// O modificador static faz com que essa variável pertença à classe Conta como um todo, e não a instâncias individuais.
-    /// O modificador private restringe o acesso a essa variável apenas dentro da própria classe Conta.
-    private static int proximoNumeroContaCorrente = 1000;
     private final int numeroConta;
     private final String nome;
     private double saldo;
 
-    // Construtor
-    public Conta(String nome) {
-        this(nome, proximoNumeroContaCorrente++);
-
-    }
-
+    // Construtor PROTEGIDO. Só pode ser chamado pelas classes filhas (ContaCorrente, etc.)
     protected Conta(String nome, int numeroConta) {
-        // Este construtor NÃO GERA NÚMERO. Ele recebe o número pronto.
         this.numeroConta = numeroConta;
         this.saldo = 0;
         this.nome = nome;
-        System.out.println("\nConta criada com sucesso! \n");
+        System.out.println("\nConta criada com sucesso!");
         System.out.println("Número da Conta: " + this.numeroConta);
-        System.out.println("\nNome do Titular: " + this.nome + "\n");
+        System.out.println("Nome do Titular: " + this.nome + "\n");
+    }
 
+    // Método de depósito padrão.
+    // Usado pela ContaCorrente e internamente pela ContaInvestimento.
+    public boolean depositar(double quantidade) {
+        if (quantidade > 0) {
+            this.saldo += quantidade;
+            System.out.println("Depósito de R$ " + quantidade + " realizado com sucesso! Seu novo saldo é: " + this.saldo);
+            return true;
+        } else {
+            System.out.println("Valor inválido para depósito.");
+            return false;
+        }
+    }
+
+    public boolean sacar(double quantidade) {
+        if (quantidade > 0 && quantidade <= this.saldo) {
+            this.saldo -= quantidade;
+            System.out.println("Saque de R$ " + quantidade + " realizado. Novo saldo: " + this.saldo);
+            return true;
+        } else {
+            System.out.println("Saque inválido. Verifique o valor ou saldo insuficiente.");
+            return false;
+        }
     }
 
     // Getters
-    public int getNumeroConta() {
-        return this.numeroConta;
-    }
-    public double getSaldo() {
-        return this.saldo;
-    }
-    public String getNome() {
-        return this.nome;
-    }
-
-
-    // Métodos
-    public boolean sacar(double quantidade) {
-
-        if (quantidade <= this.saldo) {
-            double novoSaldo = this.saldo - quantidade;
-            this.saldo = novoSaldo;
-            System.out.println("O valor de " + quantidade + " foi sacado com sucesso!");
-
-            return true;
-        } else {
-            System.out.println("O valor que você solicitou excede o saldo disponivel");
-
-            return false;
-
-        }
-
-    }
-
-    public boolean depositar(double quantidade) {
-        if (quantidade > 0) {
-            double novoSaldo = this.saldo + quantidade;
-            this.saldo = novoSaldo;
-
-            return true;
-        } else {
-            return false;
-        }
-    }
+    public int getNumeroConta() { return this.numeroConta; }
+    public double getSaldo() { return this.saldo; }
+    public String getNome() { return this.nome; }
 
     @Override
     public String toString() {
-        return "Conta\n" +
-                "Numero da Conta: " + numeroConta + "\n" +
-                "Nome: " + nome + "\n" +
-                "Saldo: " + saldo + "\n";
-
+        return "Conta [Numero: " + numeroConta + ", Titular: " + nome + ", Saldo: " + saldo + "]";
     }
 }
-
-
-
-
-

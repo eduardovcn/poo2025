@@ -1,38 +1,34 @@
 package contas;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Banco {
-    // usando o final para garantir que a referência da lista não será alterada indevidamente.
-    //A lista é inicializada como uma nova ArrayList, garantindo que o objeto lista esteja sempre pronto para uso.
-    private static final List<Conta> contasCorrente = new ArrayList<>();
+    // MUDANÇA 1: Renomeei a lista para "contas", pois ela guarda TODOS os tipos de conta.
+    private static final List<Conta> contas = new ArrayList<>();
 
-    // Método para adicionar uma nova contaCorrente ao banco
+    // Adiciona uma conta de qualquer tipo (ContaCorrente ou ContaInvestimento)
     public static void adicionarConta(Conta conta) {
-        contasCorrente.add(conta);
+        contas.add(conta);
     }
 
-    // Método para imprimir todas as contasCorrente no banco. Só para ver se está funcionando. Depois remover.
-    public static void imprimirContas() {
-        for (Conta conta : contasCorrente) {
-            System.out.println(conta);
-
-        }
-    }
-
-    public static void getConta(int numeroConta) {
-        for (Conta conta : contasCorrente) {
+    // MUDANÇA 2: Método 'getConta' corrigido.
+    // - Agora retorna 'Conta' em vez de 'Object'.
+    // - Removido o 'else' de dentro do loop.
+    public static Conta getConta(int numeroConta) {
+        for (Conta conta : contas) {
             if (conta.getNumeroConta() == numeroConta) {
-                System.out.println("\nNome: " + conta.getNome());
-                System.out.println(" ");
-                System.out.println("Saldo: " + conta.getSaldo());
-            }
-            else {
-                System.out.println("\nConta não encontrada.");
+                return conta; // Encontrou a conta, retorna o objeto
             }
         }
-
+        // Se o loop terminar e não encontrar, retorna null
+        return null;
     }
 
-    // Outros métodos para listar, remover, etc.
+    // Método para imprimir todas as contas (para debug)
+    public static void imprimirContas() {
+        for (Conta conta : contas) {
+            System.out.println(conta);
+        }
+    }
 }
