@@ -60,9 +60,9 @@ public class ContaInvestimento extends Conta {
         double rendimento = saldoAtual * this.taxa;
 
         if (rendimento > 0) {
-            System.out.println("Aplicando rendimento de R$ " + rendimento + "...");
+            System.out.println("Parabéns! Sua conta ja começou a render. Agora é só esperar o prazo de " + this.prazo + " dias para poder sacar.");
             // Chama o 'super.depositar' para não ser bloqueado pelo override
-            super.depositar(rendimento);
+            creditar(rendimento);
         }
     }
 

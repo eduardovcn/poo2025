@@ -27,6 +27,12 @@ public class Conta {
             return false;
         }
     }
+    protected void creditar(double valor) {
+        if (valor > 0) {
+            this.saldo += valor;
+        }
+    }
+
 
     public boolean sacar(double quantidade) {
         if (quantidade > 0 && quantidade <= this.saldo) {

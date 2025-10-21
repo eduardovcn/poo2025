@@ -71,7 +71,7 @@ public class AppMain {
                         // Valida se a conta existe
                         if (contaParaDepositar == null) {
                             System.out.println("Erro: Conta não encontrada.");
-                            break; // Sai do case 3
+                            break;
                         }
 
                         // Verifica a conta - 'instanceof'
@@ -87,6 +87,7 @@ public class AppMain {
 
                             // Método especial
                             contaInvest.depositar(valorDeposito, prazo);
+                            contaInvest.aplicarRendimento();
 
                         } else {
                             //Método padrão para ContaCorrente
