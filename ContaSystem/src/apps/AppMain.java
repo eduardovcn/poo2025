@@ -21,8 +21,8 @@ public class AppMain {
             System.out.println("2. Consultar Saldo"); //Ainda vou implementar
             System.out.println("3. Depositar");
             System.out.println("4. Sacar"); //Ainda vou implementar
-            System.out.println("5. Aplicar Rendimento (Conta Investimento)");
-            System.out.println("9. Listar Contas (Debug)");
+            System.out.println("5. Encerrar Conta)"); //Ainda vou implementar
+            System.out.println("9. Listar Contas (Debug)"); //Para debug
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -100,18 +100,9 @@ public class AppMain {
                         System.out.println("Função ainda não implementada.");
                         break;
 
-                    case 5: // Case para testar o rendimento
-                        System.out.println("Digite o número da conta investimento para aplicar o rendimento:");
-                        int numContaRendimento = scanner.nextInt();
-                        scanner.nextLine();
-
-                        Conta contaRendimento = Banco.getConta(numContaRendimento);
-
-                        if (contaRendimento instanceof ContaInvestimento) {
-                            ((ContaInvestimento) contaRendimento).aplicarRendimento();
-                        } else {
-                            System.out.println("Conta não é de investimento ou não foi encontrada.");
-                        }
+                    case 5:
+                        // Lógica para Apagar Conta
+                        System.out.println("Função ainda não implementada.");
                         break;
 
                     case 9:

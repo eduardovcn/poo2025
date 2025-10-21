@@ -7,34 +7,18 @@ public class ContaInvestimento extends Conta {
     public double taxa;
 
     public ContaInvestimento(String nome) {
-        // Chama o construtor PROTEGIDO da classe 'Conta',
-        // passando o nome e o próximo número da SUA sequência (2000, 2001...)
+        // Pega o construtor protegido da classe 'Conta',
+
         super(nome, proximoNumeroContaInvestimento++);
         this.prazo = 0; // Inicia sem prazo
         this.taxa = 0;  // Inicia sem taxa
     }
 
-    /**
-     * MUDANÇA 1: SOBRESCRITA (Override)
-     * Este método substitui o 'depositar(double)' da classe pai.
-     * Ele BLOQUEIA depósitos normais.
-     */
-    @Override
-    public boolean depositar(double quantidade) {
-        System.out.println("----------------------------------------------------------");
-        System.out.println("Erro: Depósitos em Conta Investimento devem informar um prazo.");
-        System.out.println("Use a opção de depósito informando o prazo.");
-        System.out.println("----------------------------------------------------------");
-        return false;
-    }
 
-    /**
-     * MUDANÇA 2: SOBRECARGA (Overload)
-     * Este é um NOVO método, que só existe na ContaInvestimento.
-     * É o único jeito de depositar nesta conta.
-     */
+    //Sobrecarga. novo método, que só existe na ContaInvestimento.
+    //É o único jeito de depositar nesta conta.
     public boolean depositar(double quantidade, int prazo) {
-        // 1. Salva o prazo e calcula a taxa para este depósito
+
         this.prazo = prazo;
 
         if (prazo <= 30) {
@@ -48,7 +32,7 @@ public class ContaInvestimento extends Conta {
         }
 
 
-        // 2. Chama o 'depositar' da CLASSE PAI (super) para realmente guardar o dinheiro
+        // Chama o 'depositar' da CLASSE PAI (super) para realmente guardar o dinheiro
         // Isso executa a lógica de 'this.saldo += quantidade' da classe Conta. Como preciso retornar um boolean, salvo o resultado em uma variável do tipo boolean.
         boolean sucesso = super.depositar(quantidade);
 
@@ -61,7 +45,6 @@ public class ContaInvestimento extends Conta {
 
         if (rendimento > 0) {
             System.out.println("Parabéns! Sua conta ja começou a render. Agora é só esperar o prazo de " + this.prazo + " dias para poder sacar.");
-            // Chama o 'super.depositar' para não ser bloqueado pelo override
             creditar(rendimento);
         }
     }
