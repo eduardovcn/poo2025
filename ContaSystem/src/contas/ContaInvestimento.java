@@ -3,8 +3,8 @@ package contas;
 public class ContaInvestimento extends Conta {
     private static int proximoNumeroContaInvestimento = 2000;
 
-    public int prazo;
-    public double taxa;
+    private int prazo;
+    private double taxa;
 
     public ContaInvestimento(String nome) {
         // Pega o construtor protegido da classe 'Conta',
