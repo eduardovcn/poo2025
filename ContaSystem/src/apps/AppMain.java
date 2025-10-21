@@ -18,9 +18,9 @@ public class AppMain {
         do {
             System.out.println("\n=== MENU PRINCIPAL ===");
             System.out.println("1. Criar Conta");
-            System.out.println("2. Consultar Saldo"); //Ainda vou implementar
+            System.out.println("2. Consultar Saldo");
             System.out.println("3. Depositar");
-            System.out.println("4. Sacar"); //Ainda vou implementar
+            System.out.println("4. Sacar");
             System.out.println("5. Encerrar Conta)"); //Ainda vou implementar
             System.out.println("9. Listar Contas (Debug)"); //Para debug
             System.out.println("0. Sair");
@@ -54,7 +54,14 @@ public class AppMain {
 
                     case 2:
 
-                        System.out.println("Função ainda não implementada.");
+                        System.out.println("Digite qual conta vocë deseja consultar o saldo: ");
+                        int saldoConta = scanner.nextInt();
+                        scanner.nextLine();
+
+                        Conta contaSaldo = Banco.getConta(saldoConta);
+
+                        System.out.println(contaSaldo);
+
                         break;
 
                     case 3:
@@ -96,8 +103,24 @@ public class AppMain {
                         break;
 
                     case 4:
-                        // Lógica para Sacar
-                        System.out.println("Função ainda não implementada.");
+                        System.out.println("Digite o número da conta para saque:");
+                        int contaSaque = scanner.nextInt();
+
+                        System.out.println("Digite o valor para saque:");
+                        double valorSaque = scanner.nextDouble();
+                        scanner.nextLine(); // Consumir
+
+                        // Busca a conta
+                        Conta contaParaSacar = Banco.getConta(contaSaque);
+
+                        // Valida se a conta existe
+                        if (contaParaSacar == null) {
+                            System.out.println("Erro: Conta não encontrada.");
+                            break;
+                        }
+
+                        // Verifica a conta - 'instanceof'
+                        contaParaSacar.sacar(valorSaque);
                         break;
 
                     case 5:

@@ -51,8 +51,7 @@ public class ContaInvestimento extends Conta {
 
     @Override
     public boolean sacar(double quantidade) {
-        // No futuro: if (prazoExpirou) { ... }
-        System.out.println("Processando saque de Conta Investimento...");
+        System.out.println("Processando saque de Conta Investimento...\n");
         return super.sacar(quantidade);
     }
 }

@@ -33,7 +33,6 @@ public class Conta {
         }
     }
 
-
     public boolean sacar(double quantidade) {
         if (quantidade > 0 && quantidade <= this.saldo) {
             this.saldo -= quantidade;
@@ -52,6 +51,8 @@ public class Conta {
 
     @Override
     public String toString() {
-        return "Conta [Numero: " + numeroConta + ", Titular: " + nome + ", Saldo: " + saldo + "]";
+        return "\nNúmero da Conta: " + numeroConta + "\n" +
+                "Titular: " + nome + "\n" +
+                "Saldo: " + saldo + "\n";
     }
 }
