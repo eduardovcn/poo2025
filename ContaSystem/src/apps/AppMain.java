@@ -78,17 +78,12 @@ public class AppMain {
                         }
 
                         // Verifica a conta - 'instanceof'
-                        if (contaParaDepositar instanceof ContaInvestimento) {
+                        if (contaParaDepositar instanceof ContaInvestimento contaInvest) {
                             //ContaInvestimento:
                             System.out.println("Digite o prazo do investimento (em dias):");
                             int prazo = scanner.nextInt();
                             scanner.nextLine();
 
-                            // Cast
-                            // Transforma 'contaParaDepositar' de 'Conta' para 'ContaInvestimento'
-                            ContaInvestimento contaInvest = (ContaInvestimento) contaParaDepositar;
-
-                            // Método especial
                             contaInvest.depositar(valorDeposito, prazo);
                             contaInvest.aplicarRendimento();
 

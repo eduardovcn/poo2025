@@ -15,11 +15,20 @@ public class Conta {
         System.out.println("Nome do Titular: " + this.nome + "\n");
     }
 
+    /// Construtor usado para carregar dados do banco de dados.
+    public Conta(int numConta, String nomeCliente, double saldo) {
+        this.numeroConta = numConta;
+        this.nome = nomeCliente;
+        this.saldo = saldo;
+    }
+
     // Usado pela ContaCorrente e internamente pela ContaInvestimento.
     public void depositar(double quantidade) {
         if (quantidade > 0) {
-            this.saldo += quantidade;
-            System.out.println("Depósito de R$ " + quantidade + " realizado com sucesso! Seu novo saldo é: " + this.saldo);
+            double novoSaldo = (this.saldo + quantidade);
+            Banco.atualizarSaldo(this.numeroConta, novoSaldo);
+
+            System.out.println("Depósito de R$ " + quantidade + " realizado com sucesso! Seu novo saldo é: " + novoSaldo);
 
         } else {
             System.out.println("Valor inválido para depósito.");

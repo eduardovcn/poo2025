@@ -31,9 +31,6 @@ public class Banco {
         }
     }
 
-
-    /// Adiciona conta ao banco de dados.
-
     public static void adicionarConta(Conta conta) {
         // O "caminho das pedras" para segurança: PreparedStatement
         // NUNCA concatenar strings para montar um SQL (ex: "INSERT... VALUES (" + conta.getNumero() + ...)")
@@ -74,12 +71,8 @@ public class Banco {
         }
     }
 
-    /**
-     * Busca e retorna uma conta pelo número.
-     * Retorna null se não encontrar.
-     */
     public static Conta getConta(int numeroConta) {
-        String sqlSelect = "SELECT * FROM conta WHERE numerConta = ?";
+        String sqlSelect = "SELECT * FROM conta WHERE numeroConta = ?";
         Conta conta = null;
 
         try (Connection conn = ConexaoFactory.getConexao();
@@ -98,6 +91,8 @@ public class Banco {
                     String nomeCliente = rs.getString("nome");
                     double saldo = rs.getDouble("saldo");
 
+                    conta = new Conta(numConta, nomeCliente, saldo);
+
                 }
             }
         } catch (SQLException e) {
@@ -105,18 +100,18 @@ public class Banco {
             e.printStackTrace();
         }
 
-        return conta; // Retorna a conta encontrada ou null
+
+        return conta;
     }
 
-
-    public static void atualizarSaldo(Conta conta) {
+    public static void atualizarSaldo(int numeroConta, double novoSaldo) {
         String sqlUpdate = "UPDATE conta SET saldo = ? WHERE numeroConta = ?";
 
         try (Connection conn = ConexaoFactory.getConexao();
              PreparedStatement pstmt = conn.prepareStatement(sqlUpdate)) {
 
-            pstmt.setDouble(1, conta.getSaldo());
-            pstmt.setInt(2, conta.getNumeroConta());
+            pstmt.setDouble(1, novoSaldo);
+            pstmt.setInt(2, numeroConta);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
