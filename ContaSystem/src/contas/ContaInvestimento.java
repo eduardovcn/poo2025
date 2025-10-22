@@ -8,15 +8,13 @@ public class ContaInvestimento extends Conta {
 
     public ContaInvestimento(String nome) {
         // Pega o construtor protegido da classe 'Conta',
-
         super(nome, proximoNumeroContaInvestimento++);
-        this.prazo = 0; // Inicia sem prazo
-        this.taxa = 0;  // Inicia sem taxa
+        this.prazo = 0;
+        this.taxa = 0;
     }
 
 
-    //Sobrecarga. novo método, que só existe na ContaInvestimento.
-    //É o único jeito de depositar nesta conta.
+    //Sobrecarga para ajustar o método, de acordo com as necessidades da Conta Investimento
     public void depositar(double quantidade, int prazo) {
 
         this.prazo = prazo;
@@ -31,8 +29,6 @@ public class ContaInvestimento extends Conta {
             this.taxa = 0.01;  // 1.0%
         }
 
-        // Chama o 'depositar' da CLASSE PAI (super) para realmente guardar o dinheiro
-        // Isso executa a lógica de 'this.saldo += quantidade' da classe Conta. Como preciso retornar um boolean, salvo o resultado em uma variável do tipo boolean.
         super.depositar(quantidade);
 
     }

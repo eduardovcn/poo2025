@@ -1,17 +1,14 @@
-// MUDANÇA: Mudei o 'package' para 'apps' como no seu original.
 package apps;
 
-// MUDANÇA: Importa todas as classes do pacote 'contas'
 import contas.*;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-// Import estático para chamar 'imprimirContas' diretamente
-import static contas.Banco.imprimirContas;
-
 public class AppMain {
     public static void main(String[] args) {
+
+        Banco.inicializarBanco();
+
         Scanner scanner = new Scanner(System.in);
         int opcao;
 
@@ -22,7 +19,6 @@ public class AppMain {
             System.out.println("3. Depositar");
             System.out.println("4. Sacar");
             System.out.println("5. Encerrar Conta");
-            System.out.println("9. Listar Contas (Debug)"); //Para debug
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -131,12 +127,6 @@ public class AppMain {
                         Conta contaParaDeletar = Banco.getConta(contaDeletar);
                         Banco.deletarConta(contaParaDeletar);
 
-                        break;
-
-                    case 9:
-                        System.out.println("--- Contas no Banco ---");
-                        imprimirContas();
-                        System.out.println("-----------------------");
                         break;
 
                     case 0:

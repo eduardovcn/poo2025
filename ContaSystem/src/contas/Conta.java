@@ -15,7 +15,6 @@ public class Conta {
         System.out.println("Nome do Titular: " + this.nome + "\n");
     }
 
-    // Método de depósito padrão.
     // Usado pela ContaCorrente e internamente pela ContaInvestimento.
     public void depositar(double quantidade) {
         if (quantidade > 0) {
