@@ -17,14 +17,13 @@ public class Conta {
 
     // Método de depósito padrão.
     // Usado pela ContaCorrente e internamente pela ContaInvestimento.
-    public boolean depositar(double quantidade) {
+    public void depositar(double quantidade) {
         if (quantidade > 0) {
             this.saldo += quantidade;
             System.out.println("Depósito de R$ " + quantidade + " realizado com sucesso! Seu novo saldo é: " + this.saldo);
-            return true;
+
         } else {
             System.out.println("Valor inválido para depósito.");
-            return false;
         }
     }
     protected void creditar(double valor) {
@@ -33,14 +32,14 @@ public class Conta {
         }
     }
 
-    public boolean sacar(double quantidade) {
+    public void sacar(double quantidade) {
         if (quantidade > 0 && quantidade <= this.saldo) {
             this.saldo -= quantidade;
             System.out.println("Saque de R$ " + quantidade + " realizado. Novo saldo: " + this.saldo);
-            return true;
+
         } else {
             System.out.println("Saque inválido. Verifique o valor ou saldo insuficiente.");
-            return false;
+
         }
     }
 

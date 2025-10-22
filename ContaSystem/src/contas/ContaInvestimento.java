@@ -17,7 +17,7 @@ public class ContaInvestimento extends Conta {
 
     //Sobrecarga. novo método, que só existe na ContaInvestimento.
     //É o único jeito de depositar nesta conta.
-    public boolean depositar(double quantidade, int prazo) {
+    public void depositar(double quantidade, int prazo) {
 
         this.prazo = prazo;
 
@@ -31,12 +31,10 @@ public class ContaInvestimento extends Conta {
             this.taxa = 0.01;  // 1.0%
         }
 
-
         // Chama o 'depositar' da CLASSE PAI (super) para realmente guardar o dinheiro
         // Isso executa a lógica de 'this.saldo += quantidade' da classe Conta. Como preciso retornar um boolean, salvo o resultado em uma variável do tipo boolean.
-        boolean sucesso = super.depositar(quantidade);
+        super.depositar(quantidade);
 
-        return sucesso;
     }
 
     public void aplicarRendimento() {
@@ -50,8 +48,8 @@ public class ContaInvestimento extends Conta {
     }
 
     @Override
-    public boolean sacar(double quantidade) {
+    public void sacar(double quantidade) {
         System.out.println("Processando saque de Conta Investimento...\n");
-        return super.sacar(quantidade);
+        super.sacar(quantidade);
     }
 }

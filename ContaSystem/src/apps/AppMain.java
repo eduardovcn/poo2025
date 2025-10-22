@@ -21,7 +21,7 @@ public class AppMain {
             System.out.println("2. Consultar Saldo");
             System.out.println("3. Depositar");
             System.out.println("4. Sacar");
-            System.out.println("5. Encerrar Conta)"); //Ainda vou implementar
+            System.out.println("5. Encerrar Conta");
             System.out.println("9. Listar Contas (Debug)"); //Para debug
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
@@ -119,13 +119,18 @@ public class AppMain {
                             break;
                         }
 
-                        // Verifica a conta - 'instanceof'
                         contaParaSacar.sacar(valorSaque);
                         break;
 
                     case 5:
-                        // Lógica para Apagar Conta
-                        System.out.println("Função ainda não implementada.");
+
+                        System.out.println("Qual conta você deseja encerrar? ");
+                        int contaDeletar = scanner.nextInt();
+                        scanner.nextLine();
+
+                        Conta contaParaDeletar = Banco.getConta(contaDeletar);
+                        Banco.deletarConta(contaParaDeletar);
+
                         break;
 
                     case 9:

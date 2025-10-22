@@ -12,6 +12,9 @@ public class Banco {
         contas.add(conta);
     }
 
+    public static void deletarConta(Conta conta) {
+        contas.remove(conta);
+    }
 
     public static Conta getConta(int numeroConta) {
         for (Conta conta : contas) {
