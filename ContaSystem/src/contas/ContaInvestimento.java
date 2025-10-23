@@ -20,7 +20,6 @@ public class ContaInvestimento extends Conta {
         this.prazo = prazo;
     }
 
-
     // Sobrecarga para ajustar o método, de acordo com as necessidades da Conta Investimento
     public void depositar(double quantidade, int prazo) {
         this.prazo = prazo;
@@ -43,7 +42,6 @@ public class ContaInvestimento extends Conta {
         Banco.atualizarInvestimento(this.getNumeroConta(), this.taxa, this.prazo);
     }
 
-
     public void aplicarRendimento() {
         double saldoAtual = getSaldo();
         double rendimento = saldoAtual * this.taxa;
@@ -64,7 +62,6 @@ public class ContaInvestimento extends Conta {
     public int getPrazo() {
         return this.prazo;
     }
-
 
     @Override
     public void sacar(double quantidade) {

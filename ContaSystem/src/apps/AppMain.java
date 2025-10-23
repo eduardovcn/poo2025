@@ -80,7 +80,6 @@ public class AppMain {
             return;
         }
 
-        // O objeto é criado e então persistido no banco
         Banco.adicionarConta(novaConta);
     }
 
@@ -89,17 +88,14 @@ public class AppMain {
         int numeroConta = scanner.nextInt();
         scanner.nextLine();
 
-
         Conta conta = Banco.getConta(numeroConta);
 
         if (conta != null) {
-
             System.out.println(conta);
         } else {
             System.out.println("Erro: Conta " + numeroConta + " não encontrada.");
         }
     }
-
 
     private static void depositar(Scanner scanner) {
         System.out.println("Digite o número da conta para depósito:");
@@ -124,8 +120,6 @@ public class AppMain {
 
             // Chama o depositar(valor, prazo) da ContaInvestimento
             contaInvest.depositar(valorDeposito, prazo);
-
-
             contaInvest.aplicarRendimento(); // Aplica o primeiro rendimento
 
         } else {
@@ -134,7 +128,6 @@ public class AppMain {
         }
     }
 
-
     private static void sacar(Scanner scanner) {
         System.out.println("Digite o número da conta para saque:");
         int contaSaque = scanner.nextInt();
@@ -142,7 +135,6 @@ public class AppMain {
         System.out.println("Digite o valor para saque:");
         double valorSaque = scanner.nextDouble();
         scanner.nextLine(); // Consumir
-
         Conta contaParaSacar = Banco.getConta(contaSaque);
 
         if (contaParaSacar == null) {
@@ -150,11 +142,9 @@ public class AppMain {
             return;
         }
 
-
         // O método sacar dentro da classe Conta já cuida de atualizar o objeto E salvar no banco.
         contaParaSacar.sacar(valorSaque);
     }
-
 
     private static void encerrarConta(Scanner scanner) {
         System.out.println("Qual conta você deseja encerrar? ");

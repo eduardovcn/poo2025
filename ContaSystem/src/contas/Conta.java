@@ -22,14 +22,11 @@ public abstract class Conta {
         this.saldo = saldo;
     }
 
-
     public void depositar(double quantidade) {
         if (quantidade > 0) {
             double novoSaldo = this.saldo + quantidade;
-
             // Persiste a mudança no banco de dados
             Banco.atualizarSaldo(this.numeroConta, novoSaldo);
-
             // Atualiza o estado do objeto em memória
             this.saldo = novoSaldo;
 
@@ -44,9 +41,7 @@ public abstract class Conta {
         if (valor > 0) {
             double novoSaldo = this.saldo + valor;
 
-
             Banco.atualizarSaldo(this.numeroConta, novoSaldo);
-
             this.saldo = novoSaldo;
         }
     }
@@ -55,12 +50,11 @@ public abstract class Conta {
     public void sacar(double quantidade) {
         if (quantidade > 0 && quantidade <= this.saldo) {
             double novoSaldo = this.saldo - quantidade;
-
             // Persiste
             Banco.atualizarSaldo(this.numeroConta, novoSaldo);
-
             // Atualiza objeto
             this.saldo = novoSaldo;
+
             System.out.println("Saque de R$ " + quantidade + " realizado. Novo saldo: " + this.saldo);
         } else {
             System.out.println("Saque inválido. Verifique o valor ou saldo insuficiente.");

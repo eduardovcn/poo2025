@@ -6,11 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import database.ConexaoFactory;
 
 public class Banco {
-
     public static void inicializarBanco() {
 
         String sqlCreateTable = "CREATE TABLE IF NOT EXISTS conta (" +
@@ -139,7 +137,6 @@ public class Banco {
         return conta;
     }
 
-
     public static void atualizarSaldo(int numeroConta, double novoSaldo) {
         String sqlUpdate = "UPDATE conta SET saldo = ? WHERE numero_conta = ?";
 
@@ -173,8 +170,6 @@ public class Banco {
             e.printStackTrace();
         }
     }
-
-
 
     public static void deletarConta(int numeroConta) {
         // O "ON DELETE CASCADE" na tabela conta_investimento garante que
