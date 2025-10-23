@@ -1,11 +1,11 @@
 package contas;
 
-public class Conta {
+public abstract class Conta {
     private final int numeroConta;
     private final String nome;
     private double saldo;
 
-    // Construtor PROTEGIDO. Só pode ser chamado pelas classes filhas (ContaCorrente, etc.)
+    // Construtor para NOVAS contas (chamado pelas classes filhas)
     protected Conta(String nome, int numeroConta) {
         this.numeroConta = numeroConta;
         this.saldo = 0;
@@ -15,39 +15,55 @@ public class Conta {
         System.out.println("Nome do Titular: " + this.nome + "\n");
     }
 
-    /// Construtor usado para carregar dados do banco de dados.
+    // Construtor para CARREGAR contas do banco (chamado pelo Banco.getConta)
     public Conta(int numConta, String nomeCliente, double saldo) {
         this.numeroConta = numConta;
         this.nome = nomeCliente;
         this.saldo = saldo;
     }
 
-    // Usado pela ContaCorrente e internamente pela ContaInvestimento.
+
     public void depositar(double quantidade) {
         if (quantidade > 0) {
-            double novoSaldo = (this.saldo + quantidade);
+            double novoSaldo = this.saldo + quantidade;
+
+            // Persiste a mudança no banco de dados
             Banco.atualizarSaldo(this.numeroConta, novoSaldo);
 
-            System.out.println("Depósito de R$ " + quantidade + " realizado com sucesso! Seu novo saldo é: " + novoSaldo);
+            // Atualiza o estado do objeto em memória
+            this.saldo = novoSaldo;
 
+            System.out.println("Depósito de R$ " + quantidade + " realizado com sucesso! Seu novo saldo é: " + this.saldo);
         } else {
             System.out.println("Valor inválido para depósito.");
         }
     }
+
+    // Também persiste a mudança no banco
     protected void creditar(double valor) {
         if (valor > 0) {
-            this.saldo += valor;
+            double novoSaldo = this.saldo + valor;
+
+
+            Banco.atualizarSaldo(this.numeroConta, novoSaldo);
+
+            this.saldo = novoSaldo;
         }
     }
 
+    // Banco.atualizarSaldo após sacar
     public void sacar(double quantidade) {
         if (quantidade > 0 && quantidade <= this.saldo) {
-            this.saldo -= quantidade;
-            System.out.println("Saque de R$ " + quantidade + " realizado. Novo saldo: " + this.saldo);
+            double novoSaldo = this.saldo - quantidade;
 
+            // Persiste
+            Banco.atualizarSaldo(this.numeroConta, novoSaldo);
+
+            // Atualiza objeto
+            this.saldo = novoSaldo;
+            System.out.println("Saque de R$ " + quantidade + " realizado. Novo saldo: " + this.saldo);
         } else {
             System.out.println("Saque inválido. Verifique o valor ou saldo insuficiente.");
-
         }
     }
 
@@ -58,8 +74,9 @@ public class Conta {
 
     @Override
     public String toString() {
-        return "\nNúmero da Conta: " + numeroConta + "\n" +
+        return "\n--- Detalhes da Conta ---" + "\n" +
+                "Número: " + numeroConta + "\n" +
                 "Titular: " + nome + "\n" +
-                "Saldo: " + saldo + "\n";
+                "Saldo: R$ " + String.format("%.2f", saldo);
     }
 }

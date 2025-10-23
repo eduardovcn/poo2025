@@ -6,9 +6,10 @@ import java.sql.SQLException;
 
 public class ConexaoFactory {
 
-    //Criando o alias para o nome do banco de dados.
+
     private static final String URL = "jdbc:sqlite:banco.db";
 
+    // Método estático para obter a conexão com o banco de dados
     public static Connection getConexao() {
         try {
             //Registrando o driver que foi baixado

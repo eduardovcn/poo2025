@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class AppMain {
     public static void main(String[] args) {
 
+        // 1. Garante que as tabelas do banco existam
         Banco.inicializarBanco();
 
         Scanner scanner = new Scanner(System.in);
@@ -15,7 +16,7 @@ public class AppMain {
         do {
             System.out.println("\n=== MENU PRINCIPAL ===");
             System.out.println("1. Criar Conta");
-            System.out.println("2. Consultar Saldo");
+            System.out.println("2. Consultar Conta (Saldo/Detalhes)");
             System.out.println("3. Depositar");
             System.out.println("4. Sacar");
             System.out.println("5. Encerrar Conta");
@@ -28,102 +29,20 @@ public class AppMain {
 
                 switch (opcao) {
                     case 1:
-                        System.out.println("1 = Conta Corrente");
-                        System.out.println("2 = Conta Investimento");
-                        System.out.print("Informe o tipo de conta: ");
-                        int tipoConta = scanner.nextInt();
-                        scanner.nextLine(); // Consome a quebra de linha
-
-                        System.out.println("Informe o nome do titular da conta:");
-                        String nome = scanner.nextLine();
-
-                        if (tipoConta == 1) {
-                            ContaCorrente contaC = new ContaCorrente(nome);
-                            Banco.adicionarConta(contaC);
-                        } else if (tipoConta == 2) {
-                            ContaInvestimento contaI = new ContaInvestimento(nome);
-                            Banco.adicionarConta(contaI);
-                        } else {
-                            System.out.println("Opção inválida.");
-                        }
+                        criarConta(scanner);
                         break;
-
                     case 2:
-
-                        System.out.println("Digite qual conta vocë deseja consultar o saldo: ");
-                        int saldoConta = scanner.nextInt();
-                        scanner.nextLine();
-
-                        Conta contaSaldo = Banco.getConta(saldoConta);
-
-                        System.out.println(contaSaldo);
-
+                        consultarConta(scanner);
                         break;
-
                     case 3:
-                        System.out.println("Digite o número da conta para depósito:");
-                        int contaDeposito = scanner.nextInt();
-
-                        System.out.println("Digite o valor para depósito:");
-                        double valorDeposito = scanner.nextDouble();
-                        scanner.nextLine(); // Consumir
-
-                        // Busca a conta
-                        Conta contaParaDepositar = Banco.getConta(contaDeposito);
-
-                        // Valida se a conta existe
-                        if (contaParaDepositar == null) {
-                            System.out.println("Erro: Conta não encontrada.");
-                            break;
-                        }
-
-                        // Verifica a conta - 'instanceof'
-                        if (contaParaDepositar instanceof ContaInvestimento contaInvest) {
-                            //ContaInvestimento:
-                            System.out.println("Digite o prazo do investimento (em dias):");
-                            int prazo = scanner.nextInt();
-                            scanner.nextLine();
-
-                            contaInvest.depositar(valorDeposito, prazo);
-                            contaInvest.aplicarRendimento();
-
-                        } else {
-                            //Método padrão para ContaCorrente
-                            contaParaDepositar.depositar(valorDeposito);
-                        }
+                        depositar(scanner);
                         break;
-
                     case 4:
-                        System.out.println("Digite o número da conta para saque:");
-                        int contaSaque = scanner.nextInt();
-
-                        System.out.println("Digite o valor para saque:");
-                        double valorSaque = scanner.nextDouble();
-                        scanner.nextLine(); // Consumir
-
-                        // Busca a conta
-                        Conta contaParaSacar = Banco.getConta(contaSaque);
-
-                        // Valida se a conta existe
-                        if (contaParaSacar == null) {
-                            System.out.println("Erro: Conta não encontrada.");
-                            break;
-                        }
-
-                        contaParaSacar.sacar(valorSaque);
+                        sacar(scanner);
                         break;
-
                     case 5:
-
-                        System.out.println("Qual conta você deseja encerrar? ");
-                        int contaDeletar = scanner.nextInt();
-                        scanner.nextLine();
-
-                        Conta contaParaDeletar = Banco.getConta(contaDeletar);
-                        Banco.deletarConta(contaParaDeletar);
-
+                        encerrarConta(scanner);
                         break;
-
                     case 0:
                         System.out.println("Saindo do programa. Até mais!");
                         break;
@@ -138,5 +57,110 @@ public class AppMain {
         } while (opcao != 0);
 
         scanner.close();
+    }
+
+    // MÓDULO: Criar Conta
+    private static void criarConta(Scanner scanner) {
+        System.out.println("1 = Conta Corrente");
+        System.out.println("2 = Conta Investimento");
+        System.out.print("Informe o tipo de conta: ");
+        int tipoConta = scanner.nextInt();
+        scanner.nextLine(); // Consome a quebra de linha
+
+        System.out.println("Informe o nome do titular da conta:");
+        String nome = scanner.nextLine();
+
+        Conta novaConta = null;
+        if (tipoConta == 1) {
+            novaConta = new ContaCorrente(nome);
+        } else if (tipoConta == 2) {
+            novaConta = new ContaInvestimento(nome);
+        } else {
+            System.out.println("Opção inválida.");
+            return;
+        }
+
+        // O objeto é criado e então persistido no banco
+        Banco.adicionarConta(novaConta);
+    }
+
+    private static void consultarConta(Scanner scanner) {
+        System.out.println("Digite qual conta você deseja consultar:");
+        int numeroConta = scanner.nextInt();
+        scanner.nextLine();
+
+
+        Conta conta = Banco.getConta(numeroConta);
+
+        if (conta != null) {
+
+            System.out.println(conta);
+        } else {
+            System.out.println("Erro: Conta " + numeroConta + " não encontrada.");
+        }
+    }
+
+
+    private static void depositar(Scanner scanner) {
+        System.out.println("Digite o número da conta para depósito:");
+        int contaDeposito = scanner.nextInt();
+
+        System.out.println("Digite o valor para depósito:");
+        double valorDeposito = scanner.nextDouble();
+        scanner.nextLine(); // Consumir
+
+        Conta contaParaDepositar = Banco.getConta(contaDeposito);
+
+        if (contaParaDepositar == null) {
+            System.out.println("Erro: Conta não encontrada.");
+            return;
+        }
+
+        // Verifica se é uma ContaInvestimento para usar o método sobrecarregado
+        if (contaParaDepositar instanceof ContaInvestimento contaInvest) {
+            System.out.println("Digite o prazo do investimento (em dias):");
+            int prazo = scanner.nextInt();
+            scanner.nextLine();
+
+            // Chama o depositar(valor, prazo) da ContaInvestimento
+            contaInvest.depositar(valorDeposito, prazo);
+
+
+            contaInvest.aplicarRendimento(); // Aplica o primeiro rendimento
+
+        } else {
+            // Chama o depositar(valor) padrão da Conta (usado pela ContaCorrente)
+            contaParaDepositar.depositar(valorDeposito);
+        }
+    }
+
+
+    private static void sacar(Scanner scanner) {
+        System.out.println("Digite o número da conta para saque:");
+        int contaSaque = scanner.nextInt();
+
+        System.out.println("Digite o valor para saque:");
+        double valorSaque = scanner.nextDouble();
+        scanner.nextLine(); // Consumir
+
+        Conta contaParaSacar = Banco.getConta(contaSaque);
+
+        if (contaParaSacar == null) {
+            System.out.println("Erro: Conta não encontrada.");
+            return;
+        }
+
+
+        // O método sacar dentro da classe Conta já cuida de atualizar o objeto E salvar no banco.
+        contaParaSacar.sacar(valorSaque);
+    }
+
+
+    private static void encerrarConta(Scanner scanner) {
+        System.out.println("Qual conta você deseja encerrar? ");
+        int contaDeletar = scanner.nextInt();
+        scanner.nextLine();
+
+        Banco.deletarConta(contaDeletar);
     }
 }
